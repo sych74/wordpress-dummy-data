@@ -1,0 +1,13 @@
+---
+jpsType: update
+jpsVersion: '1.1'
+name: Dummy test data for Wordpress
+description: Dummy test data for Wordpress
+logo: https://raw.githubusercontent.com/jelastic-jps/wordpress-cluster/master/images/wp-cluster.png
+baseUrl: https://raw.githubusercontent.com/jelastic-jps/wordpress-cluster/master
+
+onInstall:
+  - cmd[${nodes.cp.master.id}]: |-
+      curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x /usr/local/bin/wp
+    user: root
+
