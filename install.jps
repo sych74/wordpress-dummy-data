@@ -12,6 +12,10 @@ onInstall:
       cp /var/www/webroot/ROOT/wp-config.php ~/
       rm -rf /var/www/webroot/ROOT/*
       wget -qO- '${baseUrl}/data/data.tar.gz' | tar xz -C /var/www/webroot/ROOT
-
-    user: root
-
+      cp ~/wp-config.php /var/www/webroot/ROOT/
+      wp db export --tables=wp_users ~/wp_users.sql
+      wget ${baseUrl}/data/dummy-data.sql -O ~/dummy-data.sql
+      wp db import ~/dummy-data.sql
+      wp db import ~/wp_users.sql
+      wp search-replace test-wordpress-test.demo.jelastic.com env-9290590.demo.jelastic.com --all-tables
+      rm -rf /var/lib/nginx/fastcgi_cache/*
