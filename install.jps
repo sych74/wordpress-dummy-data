@@ -1,4 +1,5 @@
 
+wp plugin install WooCommerce --activate
 wp db import /tmp/dummy-data.sql
 wp plugin activate wordpress-importer
 wp import /tmp/dummy-data.xml --url=http://test-wordpress-dummy.demo.jelastic.com/ --authors=create
