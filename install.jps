@@ -4,7 +4,7 @@ jpsVersion: '1.1'
 name: Dummy test data for Wordpress
 description: Dummy test data for Wordpress
 logo: https://raw.githubusercontent.com/jelastic-jps/wordpress-cluster/master/images/wp-cluster.png
-baseUrl: https://raw.githubusercontent.com/jelastic-jps/wordpress-cluster/master
+baseUrl: https://raw.githubusercontent.com/sych74/wordpress-dummy-data/master
 
 onInstall:
   - cmd[${nodes.cp.master.id}]: |-
