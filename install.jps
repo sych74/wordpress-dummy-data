@@ -1,1 +1,9 @@
-install
+
+wp db import /tmp/dummy-data.sql
+wp plugin activate wordpress-importer
+wp import /tmp/dummy-data.xml --url=http://test-wordpress-dummy.demo.jelastic.com/ --authors=create
+wp import /tmp/dummy-data.xml --authors=create
+wp search-replace test-wordpress-test.demo.jelastic.com test-wordpress-dummy.demo.jelastic.com --all-tables
+
+
+wp theme install SalesZone --activate
