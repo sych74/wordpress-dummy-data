@@ -1,10 +1,18 @@
+wp plugin install wordpress-importer
+wp plugin activate wordpress-importer
+wp theme install saleszone --path=/var/www/webroot/ROOT/
+wp theme activate saleszone --path=/var/www/webroot/ROOT/
+wp plugin install WooCommerce --path=/var/www/webroot/ROOT/
+
+
+
+rm -rf /var/lib/nginx/fastcgi_cache/*
 
 wp plugin install WooCommerce --activate
 wp db import /tmp/dummy-data.sql
-wp plugin activate wordpress-importer
+
 wp import /tmp/dummy-data.xml --url=http://test-wordpress-dummy.demo.jelastic.com/ --authors=create
 wp import /tmp/dummy-data.xml --authors=create
 wp search-replace test-wordpress-test.demo.jelastic.com test-wordpress-dummy.demo.jelastic.com --all-tables
 
 
-wp theme install SalesZone --activate
