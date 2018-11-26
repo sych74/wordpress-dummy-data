@@ -20,7 +20,7 @@ onInstall:
       wp db import ~/dummy-data.sql --path=${globals.WEBROOT_DIR}
       wp db import ~/wp_users.sql --path=${globals.WEBROOT_DIR}
       wp search-replace test-wordpress-test.demo.jelastic.com ${env.domain} --all-tables --path=${globals.WEBROOT_DIR}
-      [ -d "/var/lib/nginx/proxy_reverse_cache/" ] && rm -rf /var/lib/nginx/proxy_reverse_cache/*
+      [ -d "/var/lib/nginx/proxy_reverse_cache/" ] && rm -rf /var/lib/nginx/proxy_reverse_cache/* || exit 0
       mkdir -p /var/lib/nginx/proxy_reverse_cache/tmp
-      [ -d "/var/lib/nginx/fastcgi_cache/" ] && rm -rf /var/lib/nginx/fastcgi_cache/*
+      [ -d "/var/lib/nginx/fastcgi_cache/" ] && rm -rf /var/lib/nginx/fastcgi_cache/* || exit 0
       
