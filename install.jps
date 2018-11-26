@@ -6,16 +6,18 @@ description: Dummy test data for Wordpress
 logo: https://raw.githubusercontent.com/jelastic-jps/wordpress-cluster/master/images/wp-cluster.png
 baseUrl: https://github.com/sych74/wordpress-dummy-data/raw/master
 
+globals:
+  WEBROOT_DIR: /var/www/webroot/ROOT
 
 onInstall:
   - cmd[${nodes.cp.master.id}]: |-
-      cp /var/www/webroot/ROOT/wp-config.php ~/
-      rm -rf /var/www/webroot/ROOT/*
-      wget -qO- '${baseUrl}/data/data.tar.gz' | tar xz -C /var/www/webroot/ROOT
-      cp ~/wp-config.php /var/www/webroot/ROOT/
-      wp db export --tables=wp_users ~/wp_users.sql
+      cp ${globals.WEBROOT_DIR}/wp-config.php ~/
+      rm -rf ${globals.WEBROOT_DIR}/*
+      wget -qO- '${baseUrl}/data/data.tar.gz' | tar xz -C ${globals.WEBROOT_DIR}
+      cp ~/wp-config.php ${globals.WEBROOT_DIR}
+      wp db export --tables=wp_users ~/wp_users.sql --path=${globals.WEBROOT_DIR}
       wget ${baseUrl}/data/dummy-data.sql -O ~/dummy-data.sql
-      wp db import ~/dummy-data.sql
-      wp db import ~/wp_users.sql
-      wp search-replace test-wordpress-test.demo.jelastic.com env-9290590.demo.jelastic.com --all-tables
+      wp db import ~/dummy-data.sql --path=${globals.WEBROOT_DIR}
+      wp db import ~/wp_users.sql --path=${globals.WEBROOT_DIR}
+      wp search-replace test-wordpress-test.demo.jelastic.com ${env.domain} --all-tables
       rm -rf /var/lib/nginx/fastcgi_cache/*
