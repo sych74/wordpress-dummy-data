@@ -4,10 +4,14 @@ jpsVersion: '1.1'
 name: Dummy test data for Wordpress
 description: Dummy test data for Wordpress
 logo: https://raw.githubusercontent.com/jelastic-jps/wordpress-cluster/master/images/wp-cluster.png
-baseUrl: https://raw.githubusercontent.com/sych74/wordpress-dummy-data/master
+baseUrl: https://github.com/sych74/wordpress-dummy-data/raw/master
+
 
 onInstall:
   - cmd[${nodes.cp.master.id}]: |-
-      curl -o /usr/local/bin/wp https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x /usr/local/bin/wp
+      cp /var/www/webroot/ROOT/wp-config.php ~/
+      rm -rf /var/www/webroot/ROOT/*
+      wget -qO- '${baseUrl}/data/data.tar.gz' | tar xz -C /var/www/webroot/ROOT
+
     user: root
 
